@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+from dotenv import load_dotenv
 import os
 from revChatGPT.V3 import Chatbot
 import json
 import subprocess
 
 debug = False
+load_dotenv()
 
 #debug = True
 
@@ -18,7 +20,7 @@ with open("system_prompt.txt", 'r') as sprompt:
 
 
 #Connect to the openAI API using your API key
-chatbot = Chatbot(api_key=os.environ('OPENAI_API_KEY'), system_prompt=system_prompt)
+chatbot = Chatbot(api_key=os.environ['OPENAI_API_KEY'], system_prompt=system_prompt)
 
 
 #Main loop
