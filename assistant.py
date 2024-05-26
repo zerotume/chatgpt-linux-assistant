@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 from revChatGPT.V3 import Chatbot
 import json
 import subprocess
@@ -17,7 +18,7 @@ with open("system_prompt.txt", 'r') as sprompt:
 
 
 #Connect to the openAI API using your API key
-chatbot = Chatbot(api_key="[API-KEY-HERE]", system_prompt=system_prompt)
+chatbot = Chatbot(api_key=os.environ('OPENAI_API_KEY'), system_prompt=system_prompt)
 
 
 #Main loop
