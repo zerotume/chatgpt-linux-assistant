@@ -49,14 +49,19 @@ while True:
 			json_str = json.loads(res)
 			command = json_str['command']
 
-			print("Running command [%s] ..."%(command))
-			#Run the command and store it's outputs for later
-			p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True) 
-			output, err = p.communicate()
-			#Get the exit code
-			exit_code = p.wait()
-			#Send the command results to chatGPT so it can be interpreted by it.
-			response = chatbot.ask('Backend: {"STDOUT":"%s", "EXITCODE":"%s"}'%(output, exit_code))
+			print("Command you want to run: \n"%(command))
+			confirm = input("confirm if you want this command:[y/N]")
+			if confirm == "y":
+				print("Running command [%s] ..."%(command))
+				#Run the command and store it's outputs for later
+				p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True) 
+				output, err = p.communicate()
+				#Get the exit code
+				exit_code = p.wait()
+				#Send the command results to chatGPT so it can be interpreted by it.
+				response = chatbot.ask('Backend: {"STDOUT":"%s", "EXITCODE":"%s"}'%(output, exit_code))
+			else:
+				print("not confirming, command aborted.")
 		elif "@Human" in response:
 			if debug:
 				print(response)
